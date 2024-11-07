@@ -56,7 +56,7 @@ test.describe('Transfer Tokens', () => {
 
     const row = page.getByRole('gridcell', { name: 'my test token', exact: true });
     await expect(row).toBeVisible();
-    await expect(page.getByText(/\d+ (second|minute)s? ago/)).toBeVisible();
+    await expect(page.getByText(/\d+ (second|minute)s? ago/).first()).toBeVisible();
     // TODO: expand on this test, it could check edit and delete icons
   });
 });
