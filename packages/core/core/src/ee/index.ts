@@ -55,7 +55,7 @@ const enable = () => {
 let initialized = false;
 
 /**
- * Optimistically enable EE if the format of the license is valid, only run once.
+ * Optimistically enable EE without checking the license
  */
 const init = (licenseDir: string, logger?: Logger) => {
   if (initialized) {
@@ -69,20 +69,8 @@ const init = (licenseDir: string, logger?: Logger) => {
     return;
   }
 
-  try {
-    const license = process.env.STRAPI_LICENSE || readLicense(licenseDir);
-
-    if (license) {
-      ee.licenseInfo = verifyLicense(license);
-      enable();
-    }
-  } catch (error) {
-    if (error instanceof Error) {
-      disable(error.message);
-    } else {
-      disable('Invalid license.');
-    }
-  }
+  // Force enable EE
+  ee.enabled = true;
 };
 
 /**
